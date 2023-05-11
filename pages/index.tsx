@@ -2,6 +2,7 @@ import Head from "next/head";
 import { getSession, signOut } from "next-auth/react";
 import { NextPageContext } from "next";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import Navbar from "@/components/Navbar";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -15,13 +16,12 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 
   return {
-    props:{}
-  }
+    props: {},
+  };
 }
 
 export default function Home() {
-
-  const {data:user}=useCurrentUser();
+  const { data: user } = useCurrentUser();
 
   return (
     <>
@@ -31,10 +31,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <p className="text-white ">Logged in as :{user?.name}</p>
-      <button onClick={() => signOut()} className="h-10 w-full bg-white">
-        Logout
-      </button>
+      <Navbar />
     </>
   );
 }
