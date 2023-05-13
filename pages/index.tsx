@@ -4,6 +4,8 @@ import { NextPageContext } from "next";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import Navbar from "@/components/Navbar";
 import BillBoard from "@/components/BillBoard";
+import MovieList from "@/components/MovieList";
+import useMovieList from "@/hooks/useMovieList";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -22,7 +24,8 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 export default function Home() {
-  const { data: user } = useCurrentUser();
+  // const { data: user } = useCurrentUser();
+  const {data:movie=[]} = useMovieList()
 
   return (
     <>
@@ -34,6 +37,9 @@ export default function Home() {
       </Head>
       <Navbar />
       <BillBoard/>
+      <div className="pb-40"> 
+      <MovieList data={movie} title="Trending Now"/>
+        </div>
     </>
   );
 }
